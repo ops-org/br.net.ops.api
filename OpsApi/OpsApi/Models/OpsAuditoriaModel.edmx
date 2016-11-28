@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="opsauditoriaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cf_deputado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_cadastro" Type="int" />
+          <Property Name="id_parlamentar" Type="int" />
+          <Property Name="id_partido" Type="int" />
+          <Property Name="id_estado" Type="int" />
+          <Property Name="cod_orcamento" Type="int" />
+          <Property Name="nome_parlamentar" Type="varchar" MaxLength="100" />
+          <Property Name="nome_civil" Type="varchar" MaxLength="100" />
+          <Property Name="condicao" Type="varchar" MaxLength="50" />
+          <Property Name="url_foto" Type="varchar" MaxLength="255" />
+          <Property Name="sexo" Type="varchar" MaxLength="2" />
+          <Property Name="gabinete" Type="varchar" MaxLength="20" />
+          <Property Name="anexo" Type="varchar" MaxLength="50" />
+          <Property Name="fone" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="profissao" Type="varchar" MaxLength="255" />
+          <Property Name="nascimento" Type="date" />
+          <Property Name="falecimento" Type="date" />
+          <Property Name="matricula" Type="int" />
+          <Property Name="valor_total_ceap" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="quantidade_secretarios" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="cf_despesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="ubigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_documento" Type="ubigint" />
+          <Property Name="id_cf_deputado" Type="uint" Nullable="false" />
+          <Property Name="id_cf_mandato" Type="uint" />
+          <Property Name="id_cf_despesa_tipo" Type="uint" Nullable="false" />
+          <Property Name="id_cf_especificacao" Type="uint" />
+          <Property Name="id_fornecedor" Type="uint" />
+          <Property Name="nome_passageiro" Type="varchar" MaxLength="100" />
+          <Property Name="numero_documento" Type="varchar" MaxLength="100" />
+          <Property Name="tipo_documento" Type="int" Nullable="false" />
+          <Property Name="data_emissao" Type="date" />
+          <Property Name="valor_documento" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="valor_glosa" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="valor_liquido" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="valor_restituicao" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="mes" Type="usmallint" Nullable="false" />
+          <Property Name="ano" Type="usmallint" Nullable="false" />
+          <Property Name="parcela" Type="uint" Nullable="false" />
+          <Property Name="trecho_viagem" Type="varchar" MaxLength="100" />
+          <Property Name="lote" Type="uint" Nullable="false" />
+          <Property Name="ressarcimento" Type="uint" />
+          <Property Name="ano_mes" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cf_despesa_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="cf_presenca_deputado">
+          <Key>
+            <PropertyRef Name="idpresenca_deputado" />
+          </Key>
+          <Property Name="idpresenca_deputado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSessao" Type="int" Nullable="false" />
+          <Property Name="legislatura" Type="int" Nullable="false" />
+          <Property Name="carteiraParlamentar" Type="int" Nullable="false" />
+          <Property Name="presenca" Type="tinyint" Nullable="false" />
+          <Property Name="justificativa" Type="varchar" MaxLength="50" />
+          <Property Name="presencaExterna" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="cf_sessao_camara">
+          <Key>
+            <PropertyRef Name="idSessao" />
+          </Key>
+          <Property Name="idSessao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="legislatura" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="inicio" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="dataSessao" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="sigla" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cnpj_cpf" Type="char" MaxLength="14" />
+          <Property Name="nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="doador" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fornecedor_info">
+          <Key>
+            <PropertyRef Name="id_fornecedor" />
+          </Key>
+          <Property Name="id_fornecedor" Type="uint" Nullable="false" />
+          <Property Name="cnpj" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="obtido_em" Type="date" />
+          <Property Name="nome" Type="varchar" MaxLength="255" />
+          <Property Name="data_de_abertura" Type="date" />
+          <Property Name="nome_fantasia" Type="varchar" MaxLength="255" />
+          <Property Name="id_fornecedor_atividade_principal" Type="int" />
+          <Property Name="id_fornecedor_natureza_juridica" Type="int" />
+          <Property Name="logradouro" Type="varchar" MaxLength="100" />
+          <Property Name="numero" Type="varchar" MaxLength="100" />
+          <Property Name="complemento" Type="varchar" MaxLength="150" />
+          <Property Name="cep" Type="varchar" MaxLength="20" />
+          <Property Name="bairro" Type="varchar" MaxLength="100" />
+          <Property Name="municipio" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="varchar" MaxLength="4" />
+          <Property Name="endereco_eletronico" Type="varchar" MaxLength="100" />
+          <Property Name="telefone" Type="varchar" MaxLength="100" />
+          <Property Name="ente_federativo_responsavel" Type="varchar" MaxLength="100" />
+          <Property Name="situacao_cadastral" Type="varchar" MaxLength="100" />
+          <Property Name="data_da_situacao_cadastral" Type="date" />
+          <Property Name="motivo_situacao_cadastral" Type="varchar" MaxLength="100" />
+          <Property Name="situacao_especial" Type="varchar" MaxLength="100" />
+          <Property Name="data_situacao_especial" Type="date" />
+          <Property Name="capital_social" Type="decimal" Precision="65" Scale="2" />
+          <Property Name="ip_colaborador" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="fornecedor_natureza_juridica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="partido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="sigla" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="presenca_deputado_ibfk1">
+          <End Role="cf_sessao_camara" Type="Self.cf_sessao_camara" Multiplicity="1" />
+          <End Role="cf_presenca_deputado" Type="Self.cf_presenca_deputado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cf_sessao_camara">
+              <PropertyRef Name="idSessao" />
+            </Principal>
+            <Dependent Role="cf_presenca_deputado">
+              <PropertyRef Name="idSessao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="opsauditoriaModelStoreContainer">
+          <EntitySet Name="cf_deputado" EntityType="Self.cf_deputado" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="cf_despesa" EntityType="Self.cf_despesa" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="cf_despesa_tipo" EntityType="Self.cf_despesa_tipo" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="cf_presenca_deputado" EntityType="Self.cf_presenca_deputado" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="cf_sessao_camara" EntityType="Self.cf_sessao_camara" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" Schema="opsauditoria" store:Type="Tables" />
+          <EntitySet Name="partido" EntityType="Self.partido" Schema="opsauditoria" store:Type="Tables" />
+          <AssociationSet Name="presenca_deputado_ibfk1" Association="Self.presenca_deputado_ibfk1">
+            <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
+            <End Role="cf_presenca_deputado" EntitySet="cf_presenca_deputado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="opsauditoriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cf_deputado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_cadastro" Type="Int32" />
+          <Property Name="id_parlamentar" Type="Int32" />
+          <Property Name="id_partido" Type="Int32" />
+          <Property Name="id_estado" Type="Int32" />
+          <Property Name="cod_orcamento" Type="Int32" />
+          <Property Name="nome_parlamentar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nome_civil" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="condicao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="url_foto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sexo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="gabinete" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="anexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="profissao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nascimento" Type="DateTime" />
+          <Property Name="falecimento" Type="DateTime" />
+          <Property Name="matricula" Type="Int32" />
+          <Property Name="valor_total_ceap" Type="Decimal" />
+          <Property Name="quantidade_secretarios" Type="SByte" />
+        </EntityType>
+        <EntityType Name="cf_despesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_documento" Type="Decimal" />
+          <Property Name="id_cf_deputado" Type="Int64" Nullable="false" />
+          <Property Name="id_cf_mandato" Type="Int64" />
+          <Property Name="id_cf_despesa_tipo" Type="Int64" Nullable="false" />
+          <Property Name="id_cf_especificacao" Type="Int64" />
+          <Property Name="id_fornecedor" Type="Int64" />
+          <Property Name="nome_passageiro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numero_documento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_documento" Type="Int32" Nullable="false" />
+          <Property Name="data_emissao" Type="DateTime" />
+          <Property Name="valor_documento" Type="Decimal" />
+          <Property Name="valor_glosa" Type="Decimal" Nullable="false" />
+          <Property Name="valor_liquido" Type="Decimal" Nullable="false" />
+          <Property Name="valor_restituicao" Type="Decimal" />
+          <Property Name="mes" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="parcela" Type="Int64" Nullable="false" />
+          <Property Name="trecho_viagem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lote" Type="Int64" Nullable="false" />
+          <Property Name="ressarcimento" Type="Int64" />
+          <Property Name="ano_mes" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cf_despesa_tipo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cf_presenca_deputado">
+          <Key>
+            <PropertyRef Name="idpresenca_deputado" />
+          </Key>
+          <Property Name="idpresenca_deputado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSessao" Type="Int32" Nullable="false" />
+          <Property Name="legislatura" Type="Int32" Nullable="false" />
+          <Property Name="carteiraParlamentar" Type="Int32" Nullable="false" />
+          <Property Name="presenca" Type="SByte" Nullable="false" />
+          <Property Name="justificativa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="presencaExterna" Type="SByte" />
+          <NavigationProperty Name="cf_sessao_camara" Relationship="Self.presenca_deputado_ibfk1" FromRole="cf_presenca_deputado" ToRole="cf_sessao_camara" />
+        </EntityType>
+        <EntityType Name="cf_sessao_camara">
+          <Key>
+            <PropertyRef Name="idSessao" />
+          </Key>
+          <Property Name="idSessao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="legislatura" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="inicio" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataSessao" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sigla" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cnpj_cpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="doador" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fornecedor_info">
+          <Key>
+            <PropertyRef Name="id_fornecedor" />
+          </Key>
+          <Property Name="id_fornecedor" Type="Int64" Nullable="false" />
+          <Property Name="cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="obtido_em" Type="DateTime" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="data_de_abertura" Type="DateTime" />
+          <Property Name="nome_fantasia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="id_fornecedor_atividade_principal" Type="Int32" />
+          <Property Name="id_fornecedor_natureza_juridica" Type="Int32" />
+          <Property Name="logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="complemento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="municipio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_eletronico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ente_federativo_responsavel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="situacao_cadastral" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="data_da_situacao_cadastral" Type="DateTime" />
+          <Property Name="motivo_situacao_cadastral" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="situacao_especial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="data_situacao_especial" Type="DateTime" />
+          <Property Name="capital_social" Type="Decimal" />
+          <Property Name="ip_colaborador" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="fornecedor_natureza_juridica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="partido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sigla" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="presenca_deputado_ibfk1">
+          <End Role="cf_sessao_camara" Type="Self.cf_sessao_camara" Multiplicity="1" />
+          <End Role="cf_presenca_deputado" Type="Self.cf_presenca_deputado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cf_sessao_camara">
+              <PropertyRef Name="idSessao" />
+            </Principal>
+            <Dependent Role="cf_presenca_deputado">
+              <PropertyRef Name="idSessao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="opsauditoriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cf_deputado" EntityType="Self.cf_deputado" />
+          <EntitySet Name="cf_despesa" EntityType="Self.cf_despesa" />
+          <EntitySet Name="cf_despesa_tipo" EntityType="Self.cf_despesa_tipo" />
+          <EntitySet Name="cf_presenca_deputado" EntityType="Self.cf_presenca_deputado" />
+          <EntitySet Name="cf_sessao_camara" EntityType="Self.cf_sessao_camara" />
+          <EntitySet Name="estadoes" EntityType="Self.estado" />
+          <EntitySet Name="fornecedors" EntityType="Self.fornecedor" />
+          <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" />
+          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" />
+          <EntitySet Name="partidoes" EntityType="Self.partido" />
+          <AssociationSet Name="presenca_deputado_ibfk1" Association="Self.presenca_deputado_ibfk1">
+            <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
+            <End Role="cf_presenca_deputado" EntitySet="cf_presenca_deputado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="opsauditoriaModelStoreContainer" CdmEntityContainer="opsauditoriaEntities">
+          <EntitySetMapping Name="cf_deputado">
+            <EntityTypeMapping TypeName="opsauditoriaModel.cf_deputado">
+              <MappingFragment StoreEntitySet="cf_deputado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_cadastro" ColumnName="id_cadastro" />
+                <ScalarProperty Name="id_parlamentar" ColumnName="id_parlamentar" />
+                <ScalarProperty Name="id_partido" ColumnName="id_partido" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="cod_orcamento" ColumnName="cod_orcamento" />
+                <ScalarProperty Name="nome_parlamentar" ColumnName="nome_parlamentar" />
+                <ScalarProperty Name="nome_civil" ColumnName="nome_civil" />
+                <ScalarProperty Name="condicao" ColumnName="condicao" />
+                <ScalarProperty Name="url_foto" ColumnName="url_foto" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="gabinete" ColumnName="gabinete" />
+                <ScalarProperty Name="anexo" ColumnName="anexo" />
+                <ScalarProperty Name="fone" ColumnName="fone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="profissao" ColumnName="profissao" />
+                <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+                <ScalarProperty Name="falecimento" ColumnName="falecimento" />
+                <ScalarProperty Name="matricula" ColumnName="matricula" />
+                <ScalarProperty Name="valor_total_ceap" ColumnName="valor_total_ceap" />
+                <ScalarProperty Name="quantidade_secretarios" ColumnName="quantidade_secretarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cf_despesa">
+            <EntityTypeMapping TypeName="opsauditoriaModel.cf_despesa">
+              <MappingFragment StoreEntitySet="cf_despesa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_documento" ColumnName="id_documento" />
+                <ScalarProperty Name="id_cf_deputado" ColumnName="id_cf_deputado" />
+                <ScalarProperty Name="id_cf_mandato" ColumnName="id_cf_mandato" />
+                <ScalarProperty Name="id_cf_despesa_tipo" ColumnName="id_cf_despesa_tipo" />
+                <ScalarProperty Name="id_cf_especificacao" ColumnName="id_cf_especificacao" />
+                <ScalarProperty Name="id_fornecedor" ColumnName="id_fornecedor" />
+                <ScalarProperty Name="nome_passageiro" ColumnName="nome_passageiro" />
+                <ScalarProperty Name="numero_documento" ColumnName="numero_documento" />
+                <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
+                <ScalarProperty Name="data_emissao" ColumnName="data_emissao" />
+                <ScalarProperty Name="valor_documento" ColumnName="valor_documento" />
+                <ScalarProperty Name="valor_glosa" ColumnName="valor_glosa" />
+                <ScalarProperty Name="valor_liquido" ColumnName="valor_liquido" />
+                <ScalarProperty Name="valor_restituicao" ColumnName="valor_restituicao" />
+                <ScalarProperty Name="mes" ColumnName="mes" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="parcela" ColumnName="parcela" />
+                <ScalarProperty Name="trecho_viagem" ColumnName="trecho_viagem" />
+                <ScalarProperty Name="lote" ColumnName="lote" />
+                <ScalarProperty Name="ressarcimento" ColumnName="ressarcimento" />
+                <ScalarProperty Name="ano_mes" ColumnName="ano_mes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cf_despesa_tipo">
+            <EntityTypeMapping TypeName="opsauditoriaModel.cf_despesa_tipo">
+              <MappingFragment StoreEntitySet="cf_despesa_tipo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cf_presenca_deputado">
+            <EntityTypeMapping TypeName="opsauditoriaModel.cf_presenca_deputado">
+              <MappingFragment StoreEntitySet="cf_presenca_deputado">
+                <ScalarProperty Name="idpresenca_deputado" ColumnName="idpresenca_deputado" />
+                <ScalarProperty Name="idSessao" ColumnName="idSessao" />
+                <ScalarProperty Name="legislatura" ColumnName="legislatura" />
+                <ScalarProperty Name="carteiraParlamentar" ColumnName="carteiraParlamentar" />
+                <ScalarProperty Name="presenca" ColumnName="presenca" />
+                <ScalarProperty Name="justificativa" ColumnName="justificativa" />
+                <ScalarProperty Name="presencaExterna" ColumnName="presencaExterna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cf_sessao_camara">
+            <EntityTypeMapping TypeName="opsauditoriaModel.cf_sessao_camara">
+              <MappingFragment StoreEntitySet="cf_sessao_camara">
+                <ScalarProperty Name="idSessao" ColumnName="idSessao" />
+                <ScalarProperty Name="legislatura" ColumnName="legislatura" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="inicio" ColumnName="inicio" />
+                <ScalarProperty Name="dataSessao" ColumnName="dataSessao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estadoes">
+            <EntityTypeMapping TypeName="opsauditoriaModel.estado">
+              <MappingFragment StoreEntitySet="estado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sigla" ColumnName="sigla" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fornecedors">
+            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor">
+              <MappingFragment StoreEntitySet="fornecedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cnpj_cpf" ColumnName="cnpj_cpf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="doador" ColumnName="doador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fornecedor_info">
+            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor_info">
+              <MappingFragment StoreEntitySet="fornecedor_info">
+                <ScalarProperty Name="id_fornecedor" ColumnName="id_fornecedor" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="obtido_em" ColumnName="obtido_em" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="data_de_abertura" ColumnName="data_de_abertura" />
+                <ScalarProperty Name="nome_fantasia" ColumnName="nome_fantasia" />
+                <ScalarProperty Name="id_fornecedor_atividade_principal" ColumnName="id_fornecedor_atividade_principal" />
+                <ScalarProperty Name="id_fornecedor_natureza_juridica" ColumnName="id_fornecedor_natureza_juridica" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="complemento" ColumnName="complemento" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="municipio" ColumnName="municipio" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="endereco_eletronico" ColumnName="endereco_eletronico" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="ente_federativo_responsavel" ColumnName="ente_federativo_responsavel" />
+                <ScalarProperty Name="situacao_cadastral" ColumnName="situacao_cadastral" />
+                <ScalarProperty Name="data_da_situacao_cadastral" ColumnName="data_da_situacao_cadastral" />
+                <ScalarProperty Name="motivo_situacao_cadastral" ColumnName="motivo_situacao_cadastral" />
+                <ScalarProperty Name="situacao_especial" ColumnName="situacao_especial" />
+                <ScalarProperty Name="data_situacao_especial" ColumnName="data_situacao_especial" />
+                <ScalarProperty Name="capital_social" ColumnName="capital_social" />
+                <ScalarProperty Name="ip_colaborador" ColumnName="ip_colaborador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fornecedor_natureza_juridica">
+            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor_natureza_juridica">
+              <MappingFragment StoreEntitySet="fornecedor_natureza_juridica">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partidoes">
+            <EntityTypeMapping TypeName="opsauditoriaModel.partido">
+              <MappingFragment StoreEntitySet="partido">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sigla" ColumnName="sigla" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
