@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="opsauditoriaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OpsAuditoriaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="cf_deputado">
           <Key>
             <PropertyRef Name="id" />
@@ -82,10 +82,10 @@
             <PropertyRef Name="idSessao" />
           </Key>
           <Property Name="idSessao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dataSessao" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="legislatura" Type="int" Nullable="false" />
           <Property Name="descricao" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="inicio" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="dataSessao" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="estado">
           <Key>
@@ -150,7 +150,7 @@
           <Property Name="sigla" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="nome" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="presenca_deputado_ibfk1">
+        <Association Name="ibfk_1">
           <End Role="cf_sessao_camara" Type="Self.cf_sessao_camara" Multiplicity="1" />
           <End Role="cf_presenca_deputado" Type="Self.cf_presenca_deputado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,18 +162,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="opsauditoriaModelStoreContainer">
-          <EntitySet Name="cf_deputado" EntityType="Self.cf_deputado" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="cf_despesa" EntityType="Self.cf_despesa" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="cf_despesa_tipo" EntityType="Self.cf_despesa_tipo" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="cf_presenca_deputado" EntityType="Self.cf_presenca_deputado" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="cf_sessao_camara" EntityType="Self.cf_sessao_camara" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="estado" EntityType="Self.estado" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" Schema="opsauditoria" store:Type="Tables" />
-          <EntitySet Name="partido" EntityType="Self.partido" Schema="opsauditoria" store:Type="Tables" />
-          <AssociationSet Name="presenca_deputado_ibfk1" Association="Self.presenca_deputado_ibfk1">
+        <EntityContainer Name="OpsAuditoriaModelStoreContainer">
+          <EntitySet Name="cf_deputado" EntityType="Self.cf_deputado" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="cf_despesa" EntityType="Self.cf_despesa" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="cf_despesa_tipo" EntityType="Self.cf_despesa_tipo" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="cf_presenca_deputado" EntityType="Self.cf_presenca_deputado" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="cf_sessao_camara" EntityType="Self.cf_sessao_camara" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" Schema="ops-auditoria" store:Type="Tables" />
+          <EntitySet Name="partido" EntityType="Self.partido" Schema="ops-auditoria" store:Type="Tables" />
+          <AssociationSet Name="ibfk_1" Association="Self.ibfk_1">
             <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
             <End Role="cf_presenca_deputado" EntitySet="cf_presenca_deputado" />
           </AssociationSet>
@@ -182,7 +182,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="opsauditoriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="OpsAuditoriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="cf_deputado">
           <Key>
             <PropertyRef Name="id" />
@@ -254,17 +254,17 @@
           <Property Name="presenca" Type="SByte" Nullable="false" />
           <Property Name="justificativa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="presencaExterna" Type="SByte" />
-          <NavigationProperty Name="cf_sessao_camara" Relationship="Self.presenca_deputado_ibfk1" FromRole="cf_presenca_deputado" ToRole="cf_sessao_camara" />
+          <NavigationProperty Name="cf_sessao_camara" Relationship="Self.ibfk_1" FromRole="cf_presenca_deputado" ToRole="cf_sessao_camara" />
         </EntityType>
         <EntityType Name="cf_sessao_camara">
           <Key>
             <PropertyRef Name="idSessao" />
           </Key>
           <Property Name="idSessao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dataSessao" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="legislatura" Type="Int32" Nullable="false" />
           <Property Name="descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="inicio" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dataSessao" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="estado">
           <Key>
@@ -329,7 +329,7 @@
           <Property Name="sigla" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="presenca_deputado_ibfk1">
+        <Association Name="ibfk_1">
           <End Role="cf_sessao_camara" Type="Self.cf_sessao_camara" Multiplicity="1" />
           <End Role="cf_presenca_deputado" Type="Self.cf_presenca_deputado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,18 +341,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="opsauditoriaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AuditoriaOps" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cf_deputado" EntityType="Self.cf_deputado" />
           <EntitySet Name="cf_despesa" EntityType="Self.cf_despesa" />
           <EntitySet Name="cf_despesa_tipo" EntityType="Self.cf_despesa_tipo" />
           <EntitySet Name="cf_presenca_deputado" EntityType="Self.cf_presenca_deputado" />
           <EntitySet Name="cf_sessao_camara" EntityType="Self.cf_sessao_camara" />
-          <EntitySet Name="estadoes" EntityType="Self.estado" />
-          <EntitySet Name="fornecedors" EntityType="Self.fornecedor" />
+          <EntitySet Name="estado" EntityType="Self.estado" />
+          <EntitySet Name="fornecedor" EntityType="Self.fornecedor" />
           <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" />
           <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" />
-          <EntitySet Name="partidoes" EntityType="Self.partido" />
-          <AssociationSet Name="presenca_deputado_ibfk1" Association="Self.presenca_deputado_ibfk1">
+          <EntitySet Name="partido" EntityType="Self.partido" />
+          <AssociationSet Name="ibfk_1" Association="Self.ibfk_1">
             <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
             <End Role="cf_presenca_deputado" EntitySet="cf_presenca_deputado" />
           </AssociationSet>
@@ -362,9 +362,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="opsauditoriaModelStoreContainer" CdmEntityContainer="opsauditoriaEntities">
+        <EntityContainerMapping StorageEntityContainer="OpsAuditoriaModelStoreContainer" CdmEntityContainer="AuditoriaOps">
           <EntitySetMapping Name="cf_deputado">
-            <EntityTypeMapping TypeName="opsauditoriaModel.cf_deputado">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.cf_deputado">
               <MappingFragment StoreEntitySet="cf_deputado">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_cadastro" ColumnName="id_cadastro" />
@@ -391,7 +391,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cf_despesa">
-            <EntityTypeMapping TypeName="opsauditoriaModel.cf_despesa">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.cf_despesa">
               <MappingFragment StoreEntitySet="cf_despesa">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_documento" ColumnName="id_documento" />
@@ -419,7 +419,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cf_despesa_tipo">
-            <EntityTypeMapping TypeName="opsauditoriaModel.cf_despesa_tipo">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.cf_despesa_tipo">
               <MappingFragment StoreEntitySet="cf_despesa_tipo">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
@@ -427,7 +427,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cf_presenca_deputado">
-            <EntityTypeMapping TypeName="opsauditoriaModel.cf_presenca_deputado">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.cf_presenca_deputado">
               <MappingFragment StoreEntitySet="cf_presenca_deputado">
                 <ScalarProperty Name="idpresenca_deputado" ColumnName="idpresenca_deputado" />
                 <ScalarProperty Name="idSessao" ColumnName="idSessao" />
@@ -440,18 +440,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cf_sessao_camara">
-            <EntityTypeMapping TypeName="opsauditoriaModel.cf_sessao_camara">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.cf_sessao_camara">
               <MappingFragment StoreEntitySet="cf_sessao_camara">
                 <ScalarProperty Name="idSessao" ColumnName="idSessao" />
+                <ScalarProperty Name="dataSessao" ColumnName="dataSessao" />
                 <ScalarProperty Name="legislatura" ColumnName="legislatura" />
                 <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="inicio" ColumnName="inicio" />
-                <ScalarProperty Name="dataSessao" ColumnName="dataSessao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="estadoes">
-            <EntityTypeMapping TypeName="opsauditoriaModel.estado">
+          <EntitySetMapping Name="estado">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.estado">
               <MappingFragment StoreEntitySet="estado">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="sigla" ColumnName="sigla" />
@@ -459,8 +459,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="fornecedors">
-            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor">
+          <EntitySetMapping Name="fornecedor">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.fornecedor">
               <MappingFragment StoreEntitySet="fornecedor">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="cnpj_cpf" ColumnName="cnpj_cpf" />
@@ -470,7 +470,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="fornecedor_info">
-            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor_info">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.fornecedor_info">
               <MappingFragment StoreEntitySet="fornecedor_info">
                 <ScalarProperty Name="id_fornecedor" ColumnName="id_fornecedor" />
                 <ScalarProperty Name="cnpj" ColumnName="cnpj" />
@@ -501,7 +501,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="fornecedor_natureza_juridica">
-            <EntityTypeMapping TypeName="opsauditoriaModel.fornecedor_natureza_juridica">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.fornecedor_natureza_juridica">
               <MappingFragment StoreEntitySet="fornecedor_natureza_juridica">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
@@ -509,8 +509,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="partidoes">
-            <EntityTypeMapping TypeName="opsauditoriaModel.partido">
+          <EntitySetMapping Name="partido">
+            <EntityTypeMapping TypeName="OpsAuditoriaModel.partido">
               <MappingFragment StoreEntitySet="partido">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="sigla" ColumnName="sigla" />
@@ -532,7 +532,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

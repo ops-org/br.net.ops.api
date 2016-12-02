@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DeputadoDTO\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -201,58 +202,59 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\cf_deputadoController.cs" />
-    <Compile Include="Controllers\cf_despesaController.cs" />
-    <Compile Include="Controllers\cf_sessao_camaraController.cs" />
+    <Compile Include="Controllers\DeputadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\cf_deputado.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cf_despesa.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cf_despesa_tipo.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cf_presenca_deputado.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cf_sessao_camara.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\DeputadoDTO.cs" />
+    <Compile Include="Models\DTO\DespesaDTO.cs" />
+    <Compile Include="Models\DTO\FornecedorDTO.cs" />
     <Compile Include="Models\estado.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\fornecedor.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\fornecedor_info.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\fornecedor_natureza_juridica.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OpsAuditoriaModel.Context.cs">
+    <Compile Include="Models\OpsAuditoria.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OpsAuditoriaModel.Context.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OpsAuditoriaModel.cs">
+    <Compile Include="Models\OpsAuditoria.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OpsAuditoriaModel.Designer.cs">
+    <Compile Include="Models\OpsAuditoria.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OpsAuditoriaModel.edmx</DependentUpon>
+      <DependentUpon>OpsAuditoria.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\partido.cs">
-      <DependentUpon>OpsAuditoriaModel.tt</DependentUpon>
+      <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -263,15 +265,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\OpsAuditoriaModel.Context.tt">
+    <Content Include="Models\OpsAuditoria.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OpsAuditoriaModel.edmx</DependentUpon>
-      <LastGenOutput>OpsAuditoriaModel.Context.cs</LastGenOutput>
+      <DependentUpon>OpsAuditoria.edmx</DependentUpon>
+      <LastGenOutput>OpsAuditoria.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\OpsAuditoriaModel.tt">
+    <Content Include="Models\OpsAuditoria.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OpsAuditoriaModel.edmx</DependentUpon>
-      <LastGenOutput>OpsAuditoriaModel.cs</LastGenOutput>
+      <DependentUpon>OpsAuditoria.edmx</DependentUpon>
+      <LastGenOutput>OpsAuditoria.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -297,12 +299,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\OpsAuditoriaModel.edmx">
+    <EntityDeploy Include="Models\OpsAuditoria.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OpsAuditoriaModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>OpsAuditoria.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\OpsAuditoriaModel.edmx.diagram">
-      <DependentUpon>OpsAuditoriaModel.edmx</DependentUpon>
+    <Content Include="Models\OpsAuditoria.edmx.diagram">
+      <DependentUpon>OpsAuditoria.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -310,7 +312,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

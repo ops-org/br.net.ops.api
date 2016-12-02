@@ -13,10 +13,10 @@ namespace OpsApi.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class opsauditoriaEntities : DbContext
+    public partial class AuditoriaOps : DbContext
     {
-        public opsauditoriaEntities()
-            : base("name=opsauditoriaEntities")
+        public AuditoriaOps()
+            : base("name=AuditoriaOps")
         {
         }
     
@@ -30,10 +30,10 @@ namespace OpsApi.Models
         public virtual DbSet<cf_despesa_tipo> cf_despesa_tipo { get; set; }
         public virtual DbSet<cf_presenca_deputado> cf_presenca_deputado { get; set; }
         public virtual DbSet<cf_sessao_camara> cf_sessao_camara { get; set; }
-        public virtual DbSet<estado> estadoes { get; set; }
-        public virtual DbSet<fornecedor> fornecedors { get; set; }
+        public virtual DbSet<estado> estado { get; set; }
+        public virtual DbSet<fornecedor> fornecedor { get; set; }
         public virtual DbSet<fornecedor_info> fornecedor_info { get; set; }
         public virtual DbSet<fornecedor_natureza_juridica> fornecedor_natureza_juridica { get; set; }
-        public virtual DbSet<partido> partidoes { get; set; }
+        public virtual DbSet<partido> partido { get; set; }
     }
 }
