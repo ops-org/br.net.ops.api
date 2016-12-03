@@ -73,7 +73,6 @@ namespace OpsApi.Controllers
         }
 
         // GET: api/Deputados/5
-        
         public IQueryable<DeputadoDTO> GetDeputadosByIdPartido(int partido)
         {
             IQueryable deputados = db.cf_deputado.Where(b => b.id_partido == partido);

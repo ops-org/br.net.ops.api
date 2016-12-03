@@ -134,14 +134,6 @@
           <Property Name="capital_social" Type="decimal" Precision="65" Scale="2" />
           <Property Name="ip_colaborador" Type="varchar" MaxLength="15" />
         </EntityType>
-        <EntityType Name="fornecedor_natureza_juridica">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="partido">
           <Key>
             <PropertyRef Name="id" />
@@ -171,7 +163,6 @@
           <EntitySet Name="estado" EntityType="Self.estado" Schema="ops-auditoria" store:Type="Tables" />
           <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="ops-auditoria" store:Type="Tables" />
           <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" Schema="ops-auditoria" store:Type="Tables" />
-          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" Schema="ops-auditoria" store:Type="Tables" />
           <EntitySet Name="partido" EntityType="Self.partido" Schema="ops-auditoria" store:Type="Tables" />
           <AssociationSet Name="ibfk_1" Association="Self.ibfk_1">
             <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
@@ -313,14 +304,6 @@
           <Property Name="capital_social" Type="Decimal" />
           <Property Name="ip_colaborador" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="fornecedor_natureza_juridica">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="partido">
           <Key>
             <PropertyRef Name="id" />
@@ -350,7 +333,6 @@
           <EntitySet Name="estado" EntityType="Self.estado" />
           <EntitySet Name="fornecedor" EntityType="Self.fornecedor" />
           <EntitySet Name="fornecedor_info" EntityType="Self.fornecedor_info" />
-          <EntitySet Name="fornecedor_natureza_juridica" EntityType="Self.fornecedor_natureza_juridica" />
           <EntitySet Name="partido" EntityType="Self.partido" />
           <AssociationSet Name="ibfk_1" Association="Self.ibfk_1">
             <End Role="cf_sessao_camara" EntitySet="cf_sessao_camara" />
@@ -497,15 +479,6 @@
                 <ScalarProperty Name="data_situacao_especial" ColumnName="data_situacao_especial" />
                 <ScalarProperty Name="capital_social" ColumnName="capital_social" />
                 <ScalarProperty Name="ip_colaborador" ColumnName="ip_colaborador" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="fornecedor_natureza_juridica">
-            <EntityTypeMapping TypeName="OpsAuditoriaModel.fornecedor_natureza_juridica">
-              <MappingFragment StoreEntitySet="fornecedor_natureza_juridica">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="descricao" ColumnName="descricao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

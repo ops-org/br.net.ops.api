@@ -33,7 +33,6 @@ namespace OpsApi.Models
         public virtual DbSet<estado> estado { get; set; }
         public virtual DbSet<fornecedor> fornecedor { get; set; }
         public virtual DbSet<fornecedor_info> fornecedor_info { get; set; }
-        public virtual DbSet<fornecedor_natureza_juridica> fornecedor_natureza_juridica { get; set; }
         public virtual DbSet<partido> partido { get; set; }
     }
 }
