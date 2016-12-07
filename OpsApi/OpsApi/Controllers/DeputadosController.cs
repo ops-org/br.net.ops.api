@@ -22,14 +22,12 @@ namespace OpsApi.Controllers
         // GET: api/Deputados
         public IQueryable<DeputadoDTO> GetDeputados()
         {
-            IQueryable deputados = db.cf_deputado;
             List<DeputadoDTO> deputadosDTO = new List<DeputadoDTO>();
             
-            foreach (cf_deputado deputado in deputados)
+            foreach (cf_deputado deputado in db.cf_deputado)
             {
                 deputadosDTO.Add(DeputadoDTO.GeraDTO(deputado));
             }
-            db.Dispose();
             return deputadosDTO.AsQueryable();
         }
 
@@ -75,10 +73,8 @@ namespace OpsApi.Controllers
         // GET: api/Deputados/5
         public IQueryable<DeputadoDTO> GetDeputadosByIdPartido(int partido)
         {
-            IQueryable deputados = db.cf_deputado.Where(b => b.id_partido == partido);
             List<DeputadoDTO> deputadosDTO = new List<DeputadoDTO>();
-
-            foreach (cf_deputado deputado in deputados)
+            foreach (cf_deputado deputado in db.cf_deputado.Where(b => b.id_partido == partido))
             {
                 deputadosDTO.Add(DeputadoDTO.GeraDTO(deputado));
             }

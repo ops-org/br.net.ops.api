@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OpsApi.Models;
+using OpsApi.Models.DTO;
+using System.Globalization;
 
 namespace OpsApi.Controllers
 {
@@ -18,88 +20,120 @@ namespace OpsApi.Controllers
         private AuditoriaOps db = new AuditoriaOps();
 
         // GET: api/Despesas
-        public IQueryable<cf_despesa> GetDespesas()
+        public IQueryable<DespesaDTO> GetDespesas()
         {
-            return db.cf_despesa;
+            List<DespesaDTO> despesas = new List<DespesaDTO>();
+            foreach (var despesa in db.cf_despesa)
+            {
+                despesas.Add(DespesaDTO.GeraDTO(despesa));
+            }
+            return despesas.AsQueryable();
         }
 
         // GET: api/Despesas/5
-        [ResponseType(typeof(cf_despesa))]
-        public async Task<IHttpActionResult> Getcf_despesa(decimal id)
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaById(decimal id)
         {
-            cf_despesa cf_despesa = await db.cf_despesa.FindAsync(id);
-            if (cf_despesa == null)
+            cf_despesa despesa = await db.cf_despesa.Where(b => b.id == id).FirstOrDefaultAsync();
+            if (despesa == null)
             {
                 return NotFound();
             }
 
-            return Ok(cf_despesa);
+            return Ok(DespesaDTO.GeraDTO(despesa));
         }
 
-        // PUT: api/Despesas/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putcf_despesa(decimal id, cf_despesa cf_despesa)
+        // GET: api/Despesas/5
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaByIdDocumento(decimal idDocumento)
         {
-            if (!ModelState.IsValid)
+            cf_despesa despesa = await db.cf_despesa.Where(b => b.id_documento == idDocumento).FirstOrDefaultAsync();
+            if (despesa == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != cf_despesa.id)
-            {
-                return BadRequest();
-            }
+            return Ok(DespesaDTO.GeraDTO(despesa));
+        }
 
-            db.Entry(cf_despesa).State = EntityState.Modified;
-
-            try
+        //GET: api/Despesas/5
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaByIdDeputado(int idDeputado)
+        {
+            List<DespesaDTO> despesas = new List<DespesaDTO>();
+            foreach (var despesa in await db.cf_despesa.Where(b => b.id_cf_deputado == idDeputado).ToListAsync())
             {
-                await db.SaveChangesAsync();
+                despesas.Add(DespesaDTO.GeraDTO(despesa));
             }
-            catch (DbUpdateConcurrencyException)
+            if (despesas.Count == 0)
             {
-                if (!cf_despesaExists(id))
+                return NotFound();
+            }
+            return Ok(despesas);
+        }
+
+        // GET: api/Despesas/?id=1772&dataInicial=02/05/2015&dataFinal=30/05/2015
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaDeputadoByPeriodo(int idDeputado, DateTime dataI, DateTime dataF)
+        {
+            List<DespesaDTO> despesas = new List<DespesaDTO>();          
+            foreach (var despesa in await db.cf_despesa.Where(b => (b.id_cf_deputado == idDeputado && (b.data_emissao >= dataI && b.data_emissao < dataF))).ToListAsync())                                                              
+            {
+                despesas.Add(DespesaDTO.GeraDTO(despesa));
+            }
+            if (despesas.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(despesas);
+        }
+
+        // GET: api/Despesas/?dataInicial=yyyy/MM/dd&dataFinal=yyyy/MM/dd
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaByPeriodo(DateTime dataI, DateTime dataF)
+        {
+                List<DespesaDTO> despesas = new List<DespesaDTO>();
+                foreach (var despesa in await db.cf_despesa.Where(b => b.data_emissao >= dataI && b.data_emissao < dataF).ToListAsync())
+                {
+                    despesas.Add(DespesaDTO.GeraDTO(despesa));
+                }
+                if (despesas.Count == 0)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+                return Ok(despesas); 
         }
 
-        // POST: api/Despesas
-        [ResponseType(typeof(cf_despesa))]
-        public async Task<IHttpActionResult> Postcf_despesa(cf_despesa cf_despesa)
+        // GET: api/Despesas/5
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaByTipo(int tipo)
         {
-            if (!ModelState.IsValid)
+            List<DespesaDTO> despesas = new List<DespesaDTO>();
+            foreach (var despesa in await db.cf_despesa.Where(b => b.id_cf_despesa_tipo == tipo).ToListAsync())
             {
-                return BadRequest(ModelState);
+                despesas.Add(DespesaDTO.GeraDTO(despesa));
             }
-
-            db.cf_despesa.Add(cf_despesa);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = cf_despesa.id }, cf_despesa);
-        }
-
-        // DELETE: api/Despesas/5
-        [ResponseType(typeof(cf_despesa))]
-        public async Task<IHttpActionResult> Deletecf_despesa(decimal id)
-        {
-            cf_despesa cf_despesa = await db.cf_despesa.FindAsync(id);
-            if (cf_despesa == null)
+            if (despesas.Count == 0)
             {
                 return NotFound();
             }
+            return Ok(despesas);
+        }
 
-            db.cf_despesa.Remove(cf_despesa);
-            await db.SaveChangesAsync();
-
-            return Ok(cf_despesa);
+        // GET: api/Despesas/5
+        [ResponseType(typeof(DespesaDTO))]
+        public async Task<IHttpActionResult> GetDespesaDeputadoByTipo(int idDeputado, int tipo)
+        {
+            List<DespesaDTO> despesas = new List<DespesaDTO>();
+            foreach (var despesa in await db.cf_despesa.Where(b => b.id_cf_despesa_tipo == tipo && b.id_cf_deputado == idDeputado).ToListAsync())
+            {
+                despesas.Add(DespesaDTO.GeraDTO(despesa));
+            }
+            if (despesas.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(despesas);
         }
 
         protected override void Dispose(bool disposing)

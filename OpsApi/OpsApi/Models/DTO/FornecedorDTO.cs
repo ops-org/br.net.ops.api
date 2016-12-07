@@ -17,15 +17,22 @@ namespace OpsApi.Models.DTO
         {
             using (AuditoriaOps db = new AuditoriaOps())
             {
-                return new FornecedorDTO
+                if (fornecedor != null)
                 {
-                    Id = fornecedor.id,
-                    CnpjCpf = fornecedor.cnpj_cpf,
-                    Nome = fornecedor.nome,
-                    Doador = fornecedor.doador,
+                    return new FornecedorDTO
+                    {
+                        Nome = fornecedor.nome,
+                        Id = fornecedor.id,
+                        CnpjCpf = fornecedor.cnpj_cpf,
+                        Doador = fornecedor.doador,
 
-                    InfoFornecedor = db.fornecedor_info.Find(fornecedor.id),
-                };
+                        InfoFornecedor = db.fornecedor_info.Find(fornecedor.id) ?? null,
+                    };
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

@@ -37,34 +37,41 @@ namespace OpsApi.Models.DTO
         {
             using (AuditoriaOps db = new AuditoriaOps())
             {
-                return new DespesaDTO
+                if (despesa != null)
                 {
-                    Id = despesa.id,
-                    IdDocumento = despesa.id_documento,
-                    IdMandato = despesa.id_cf_mandato,
-                    IdEspecificacao = despesa.id_cf_especificacao,
-                    NomePassageiro = despesa.nome_passageiro,
-                    NumeroDocumento = despesa.numero_documento,
-                    TipoDocumento = despesa.tipo_documento,
-                    DataEmissao = despesa.data_emissao,
-                    ValorDocumento = despesa.valor_documento,
-                    ValorLiquido = despesa.valor_liquido,
-                    ValorRestituicao = despesa.valor_restituicao,
-                    Mes = despesa.mes,
-                    Ano = despesa.ano,
-                    Parcela = despesa.parcela,
-                    TrechoViagem = despesa.trecho_viagem,
-                    Lote = despesa.lote,
-                    Ressarcimento = despesa.ressarcimento,
-                    AnoMes = despesa.ano_mes,
+                    return new DespesaDTO
+                    {
+                        Id = despesa.id,
+                        IdDocumento = despesa.id_documento,
+                        IdMandato = despesa.id_cf_mandato,
+                        IdEspecificacao = despesa.id_cf_especificacao,
+                        NomePassageiro = despesa.nome_passageiro,
+                        NumeroDocumento = despesa.numero_documento,
+                        TipoDocumento = despesa.tipo_documento,
+                        DataEmissao = despesa.data_emissao,
+                        ValorDocumento = despesa.valor_documento,
+                        ValorLiquido = despesa.valor_liquido,
+                        ValorRestituicao = despesa.valor_restituicao,
+                        Mes = despesa.mes,
+                        Ano = despesa.ano,
+                        Parcela = despesa.parcela,
+                        TrechoViagem = despesa.trecho_viagem,
+                        Lote = despesa.lote,
+                        Ressarcimento = despesa.ressarcimento,
+                        AnoMes = despesa.ano_mes,
 
-                    Deputado = DeputadoDTO.GeraDTO((from dep in db.cf_deputado.Where(b => b.id == despesa.id_cf_deputado)
-                                select dep).FirstOrDefault()),
-                    TipoDespesa = (from tipo in db.cf_despesa_tipo.Where(b => b.id == despesa.id_cf_despesa_tipo)
-                                   select tipo).FirstOrDefault(),
-                    Fornecedor = FornecedorDTO.GeraDTO((from forn in db.fornecedor.Where(b => b.id == despesa.id_fornecedor)
-                                select forn).FirstOrDefault())
-                };
+                        Deputado = DeputadoDTO.GeraDTO((from dep in db.cf_deputado.Where(b => b.id == despesa.id_cf_deputado)
+                                                        select dep).FirstOrDefault()),
+                        TipoDespesa = (from tipo in db.cf_despesa_tipo.Where(b => b.id == despesa.id_cf_despesa_tipo)
+                                       select tipo).FirstOrDefault(),
+                        Fornecedor = FornecedorDTO.GeraDTO((from forn in db.fornecedor.Where(b => b.id == despesa.id_fornecedor)
+                                                            select forn).FirstOrDefault())
+                    };
+                }
+                else
+                {
+                    return null;
+                }   
             }
         }
     }

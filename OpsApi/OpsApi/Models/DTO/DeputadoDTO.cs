@@ -34,33 +34,40 @@ namespace OpsApi.Models.DTO
         {
             using (AuditoriaOps dbp = new AuditoriaOps())
             {
-                return new DeputadoDTO
+                if (deputado != null)
                 {
-                    Id = deputado.id,
-                    IdCadastro = deputado.id_cadastro,
-                    IdParlamentar = deputado.id_parlamentar,
-                    CodOrcamento = deputado.cod_orcamento,
-                    NomeParlamentar = deputado.nome_parlamentar,
-                    NomeCivil = deputado.nome_civil,
-                    Condicao = deputado.condicao,
-                    UrlFoto = deputado.url_foto,
-                    Sexo = deputado.sexo,
-                    Gabinete = deputado.gabinete,
-                    Fone = deputado.fone,
-                    Email = deputado.email,
-                    Profissao = deputado.profissao,
-                    Nascimento = deputado.nascimento,
-                    Falecimento = deputado.falecimento,
-                    Matricula = deputado.matricula,
-                    ValorTotalCeap = deputado.valor_total_ceap,
-                    QntSecretarios = deputado.quantidade_secretarios,
+                    return new DeputadoDTO
+                    {
+                        Id = deputado.id,
+                        IdCadastro = deputado.id_cadastro,
+                        IdParlamentar = deputado.id_parlamentar,
+                        CodOrcamento = deputado.cod_orcamento,
+                        NomeParlamentar = deputado.nome_parlamentar,
+                        NomeCivil = deputado.nome_civil,
+                        Condicao = deputado.condicao,
+                        UrlFoto = deputado.url_foto,
+                        Sexo = deputado.sexo,
+                        Gabinete = deputado.gabinete,
+                        Fone = deputado.fone,
+                        Email = deputado.email,
+                        Profissao = deputado.profissao,
+                        Nascimento = deputado.nascimento,
+                        Falecimento = deputado.falecimento,
+                        Matricula = deputado.matricula,
+                        ValorTotalCeap = deputado.valor_total_ceap,
+                        QntSecretarios = deputado.quantidade_secretarios,
 
-                    Partido = (from par in dbp.partido.Where(b => b.id == deputado.id_partido)
-                               select par).FirstOrDefault(),
+                        Partido = (from par in dbp.partido.Where(b => b.id == deputado.id_partido)
+                                   select par).FirstOrDefault(),
 
-                    Estado = (from est in dbp.estado.Where(e => e.id == deputado.id_estado)
-                              select est).FirstOrDefault()
-                };
+                        Estado = (from est in dbp.estado.Where(e => e.id == deputado.id_estado)
+                                  select est).FirstOrDefault()
+                    };
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }
