@@ -21,7 +21,5 @@ namespace OpsApi.Models
         public sbyte presenca { get; set; }
         public string justificativa { get; set; }
         public Nullable<sbyte> presencaExterna { get; set; }
-    
-        public virtual cf_sessao_camara cf_sessao_camara { get; set; }
     }
 }

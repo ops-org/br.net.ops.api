@@ -15,7 +15,7 @@ namespace OpsApi.Models
     public partial class cf_sessao_camara
     {
         public int idSessao { get; set; }
-        public string dataSessao { get; set; }
+        public System.DateTime dataSessao { get; set; }
         public int legislatura { get; set; }
         public string descricao { get; set; }
         public string inicio { get; set; }

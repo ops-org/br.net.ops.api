@@ -19,7 +19,7 @@ namespace OpsApi.Controllers
         private AuditoriaOps db = new AuditoriaOps();
 
         // GET: api/fornecedors
-        public IQueryable<FornecedorDTO> Getfornecedores()
+        public IQueryable<FornecedorDTO> GetFornecedores()
         {
             List<FornecedorDTO> fornecedores = new List<FornecedorDTO>();
             foreach (var Fornecedor in db.fornecedor)

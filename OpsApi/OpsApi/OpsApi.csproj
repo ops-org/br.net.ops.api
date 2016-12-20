@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Auditoria\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -201,11 +202,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AuditoriaController.cs" />
     <Compile Include="Controllers\DeputadosController.cs" />
     <Compile Include="Controllers\DespesasController.cs" />
     <Compile Include="Controllers\FornecedoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\PresencasController.cs" />
+    <Compile Include="Controllers\SessoesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -224,9 +227,11 @@
     <Compile Include="Models\cf_sessao_camara.cs">
       <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\Auditoria.cs" />
     <Compile Include="Models\DTO\DeputadoDTO.cs" />
     <Compile Include="Models\DTO\DespesaDTO.cs" />
     <Compile Include="Models\DTO\FornecedorDTO.cs" />
+    <Compile Include="Models\DTO\PresencaDTO.cs" />
     <Compile Include="Models\estado.cs">
       <DependentUpon>OpsAuditoria.tt</DependentUpon>
     </Compile>

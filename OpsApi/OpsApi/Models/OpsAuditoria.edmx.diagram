@@ -5,16 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b7753006cd0d4b038b78404e62eee228" Name="Diagram1">
-        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_deputado" Width="1.5" PointX="8" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_deputado" Width="1.625" PointX="8" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OpsAuditoriaModel.cf_despesa" Width="1.5" PointX="6.25" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OpsAuditoriaModel.cf_despesa_tipo" Width="1.5" PointX="6.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_presenca_deputado" Width="1.5" PointX="2.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_sessao_camara" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpsAuditoriaModel.estado" Width="1.5" PointX="9.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpsAuditoriaModel.estado" Width="1.5" PointX="10" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OpsAuditoriaModel.fornecedor" Width="1.5" PointX="4.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OpsAuditoriaModel.fornecedor_info" Width="1.5" PointX="4.5" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OpsAuditoriaModel.partido" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
-        <AssociationConnector Association="OpsAuditoriaModel.ibfk_1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OpsAuditoriaModel.partido" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_presenca_deputado" Width="1.75" PointX="2.25" PointY="0.5" />
+        <EntityTypeShape EntityType="OpsAuditoriaModel.cf_sessao_camara" Width="1.5" PointX="0.5" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

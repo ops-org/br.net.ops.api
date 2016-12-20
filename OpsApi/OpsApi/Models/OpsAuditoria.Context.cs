@@ -28,11 +28,11 @@ namespace OpsApi.Models
         public virtual DbSet<cf_deputado> cf_deputado { get; set; }
         public virtual DbSet<cf_despesa> cf_despesa { get; set; }
         public virtual DbSet<cf_despesa_tipo> cf_despesa_tipo { get; set; }
-        public virtual DbSet<cf_presenca_deputado> cf_presenca_deputado { get; set; }
-        public virtual DbSet<cf_sessao_camara> cf_sessao_camara { get; set; }
         public virtual DbSet<estado> estado { get; set; }
         public virtual DbSet<fornecedor> fornecedor { get; set; }
         public virtual DbSet<fornecedor_info> fornecedor_info { get; set; }
         public virtual DbSet<partido> partido { get; set; }
+        public virtual DbSet<cf_presenca_deputado> cf_presenca_deputado { get; set; }
+        public virtual DbSet<cf_sessao_camara> cf_sessao_camara { get; set; }
     }
 }
