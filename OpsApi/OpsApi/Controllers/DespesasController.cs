@@ -145,7 +145,7 @@ namespace OpsApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool cf_despesaExists(decimal id)
+        private bool despesaExists(decimal id)
         {
             return db.cf_despesa.Count(e => e.id == id) > 0;
         }

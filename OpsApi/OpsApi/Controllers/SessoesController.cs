@@ -70,7 +70,7 @@ namespace OpsApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool cf_sessao_camaraExists(int id)
+        private bool sessaoExists(int id)
         {
             return db.cf_sessao_camara.Count(e => e.idSessao == id) > 0;
         }

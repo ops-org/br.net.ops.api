@@ -43,7 +43,24 @@ namespace OpsApi.Controllers
             {
                 presencas.Add(PresencaDTO.GeraDTO(presenca));
             }
-            return presencas.Where(p => p.sessao.dataSessao > dataIn && p.sessao.dataSessao <= dataFi).AsQueryable();
+            return presencas.Where(p => p.sessao.dataSessao >= dataIn && p.sessao.dataSessao <= dataFi).AsQueryable();
+        }
+
+        public double GetPercentualPresenca(int carteiraParlamentar, int leg = 0)
+        {
+            float perpresenca = 0;
+            if (leg == 0)
+            {
+                leg = db.cf_presenca_deputado.Max(x => x.legislatura);
+            }
+            IQueryable<sbyte> presencas = from p in db.cf_presenca_deputado.Where(c => c.carteiraParlamentar == carteiraParlamentar)
+                               select p.presenca;
+            foreach(var i in presencas)
+            {
+                if (i == 1) perpresenca++;
+            }
+            double percentual = (perpresenca / presencas.Count()) * 100;
+            return percentual;
         }
 
         protected override void Dispose(bool disposing)
@@ -55,7 +72,7 @@ namespace OpsApi.Controllers
             base.Dispose(disposing);
         }
 
-        private bool cf_presenca_deputadoExists(int id)
+        private bool presencaExists(int id)
         {
             return db.cf_presenca_deputado.Count(e => e.idpresenca_deputado == id) > 0;
         }

@@ -10,7 +10,7 @@ namespace OpsApi.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Ops API";
 
             return View();
         }
